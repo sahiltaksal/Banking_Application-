@@ -5,5 +5,12 @@ import com.bank.Banking.application.entity.Account;
 
 public interface AccountService {
 	Accountdto createAccount(Accountdto account);
-
+	
+	Accountdto getAccountdtoById(Long id);
+	Accountdto deposit(Long id,double balance);
+	
 }
+ 
+
+  
+
