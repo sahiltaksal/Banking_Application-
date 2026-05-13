@@ -29,7 +29,7 @@ public class AccountController {
 	
 	
 	
-	//add accoungt REST API
+	//add account REST API
 	
 	@PostMapping
 	public ResponseEntity<Accountdto> addAccount (@RequestBody Accountdto accountdto){
@@ -55,6 +55,18 @@ public class AccountController {
     	double amount =request.get("amount");
     	
     	Accountdto accountdto= accountService.deposit(id,amount);
+    	
+		return ResponseEntity.ok(accountdto);
+    	
+    }
+    
+    
+    //withdraw RREST API
+    @PutMapping("/{id}/withdraw")
+    public ResponseEntity<Accountdto> withdraw(@PathVariable Long id,@RequestBody Map<String, Double>request){
+    	
+    	double amount=request.get("amount");
+    	Accountdto accountdto =accountService.withdraw(id, amount);
     	
 		return ResponseEntity.ok(accountdto);
     	
