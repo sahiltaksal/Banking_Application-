@@ -1,5 +1,10 @@
 package com.bank.Banking.application.service.impl;
 
+import java.text.Collator;
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
 
 import com.bank.Banking.application.dto.Accountdto;
@@ -67,6 +72,19 @@ public class Accountserviceimpl  implements AccountService {
 		 Account savedAccount = accountRepository.save(account);
 		
 		return AccountMapper.maptoAccountdto(savedAccount);
+	}
+
+
+	@Override
+	public List<Accountdto> getAllAccounts() {
+	
+		
+		List<Account> accounts=  accountRepository.findAll();
+		return	accounts.stream().map((account)-> AccountMapper.maptoAccountdto(account))
+		.collect(Collectors.toList());
+			
+		
+		
 	}
 
 }

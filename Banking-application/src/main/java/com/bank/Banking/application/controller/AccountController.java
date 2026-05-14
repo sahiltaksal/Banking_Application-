@@ -1,5 +1,6 @@
 package com.bank.Banking.application.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,6 +73,17 @@ public class AccountController {
     	
     }
 	
+    
+    //Get All Accounts REST API
+    @GetMapping
+    public ResponseEntity<List<Accountdto> > getAllAccounts(){
+    	
+   List<Accountdto> accounts = 	accountService.getAllAccounts();
+		return ResponseEntity.ok(accounts);
+    	
+    
+    }
+    
 	
 
 }
