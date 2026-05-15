@@ -41,6 +41,7 @@ This helps maintain clean code structure and makes the project easier to scale a
 * Deposit Money
 * Withdraw Money
 * Insufficient Balance Validation
+* Delete Account
 
 ---
 
@@ -134,7 +135,7 @@ This project helped in understanding:
 
 ## Upcoming Features
 
-* Delete Account
+
 * Transfer Money
 * Transaction History
 * Global Exception Handling
