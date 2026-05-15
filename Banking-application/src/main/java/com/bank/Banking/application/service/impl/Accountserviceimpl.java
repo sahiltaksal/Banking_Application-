@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.bank.Banking.application.dto.Accountdto;
 import com.bank.Banking.application.entity.Account;
 import com.bank.Banking.application.entity.AccountRepository;
+import com.bank.Banking.application.exception.AccountException;
 import com.bank.Banking.application.mapper.AccountMapper;
 import com.bank.Banking.application.service.AccountService;
 @Service
@@ -36,14 +37,14 @@ public class Accountserviceimpl  implements AccountService {
 
 	@Override
 	public Accountdto getAccountdtoById(Long id) {
-		Account account= accountRepository.findById(id).orElseThrow(()-> new RuntimeException("Account does not exists"));
+		Account account= accountRepository.findById(id).orElseThrow(()-> new AccountException("Account does not exists"));
 		 return  AccountMapper.maptoAccountdto(account);
 	}
 
 
 	@Override
 	public Accountdto deposit(Long id, double amount) {
-		Account account= accountRepository.findById(id).orElseThrow(()-> new RuntimeException("Account does not exists"));
+		Account account= accountRepository.findById(id).orElseThrow(()-> new AccountException("Account does not exists"));
 		
 		 
 		 double total= account.getBalance()+amount;
@@ -58,7 +59,7 @@ public class Accountserviceimpl  implements AccountService {
 	@Override
 	public Accountdto withdraw(Long id, double amount) {
 		
-		Account account= accountRepository.findById(id).orElseThrow(()-> new RuntimeException("Account does not exists"));
+		Account account= accountRepository.findById(id).orElseThrow(()-> new AccountException("Account does not exists"));
 		
 		if (account.getBalance()< amount) {
 			
@@ -86,5 +87,16 @@ public class Accountserviceimpl  implements AccountService {
 		
 		
 	}
+
+
+	@Override
+	public void deleteAccount(Long id) {
+	
+	Account	  account= accountRepository.findById(id).orElseThrow(()-> new AccountException("Account does not exists"));
+		 
+		accountRepository.deleteById(id);
+	}
+	
+	
 
 }
