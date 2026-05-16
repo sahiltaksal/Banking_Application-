@@ -3,6 +3,7 @@ package com.bank.Banking.application.service;
 import java.util.List;
 
 import com.bank.Banking.application.dto.Accountdto;
+import com.bank.Banking.application.dto.TransferFundDto;
 import com.bank.Banking.application.entity.Account;
 
 public interface AccountService {
@@ -18,6 +19,7 @@ public interface AccountService {
 	
 	void deleteAccount(Long id);
 	
+	void transferFunds(TransferFundDto transferFundDto);
 	
 }
  
