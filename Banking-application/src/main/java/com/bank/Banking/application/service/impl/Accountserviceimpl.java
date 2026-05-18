@@ -1,6 +1,7 @@
 package com.bank.Banking.application.service.impl;
 
 import java.text.Collator;
+import com.bank.Banking.application.entity.TransactionRepository;
 import java.util.List;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
@@ -14,16 +15,20 @@ import com.bank.Banking.application.entity.AccountRepository;
 import com.bank.Banking.application.exception.AccountException;
 import com.bank.Banking.application.mapper.AccountMapper;
 import com.bank.Banking.application.service.AccountService;
+import com.bank.Banking.application.entity.Transaction;
 @Service
 public class Accountserviceimpl  implements AccountService {
 	
 	private AccountRepository accountRepository;
+	private TransactionRepository transactionRepository;
 	
 
-	public Accountserviceimpl(AccountRepository accountRepository) {
-		super();
-		this.accountRepository = accountRepository;
-	}
+	public Accountserviceimpl(AccountRepository accountRepository,
+            TransactionRepository transactionRepository) {
+super();
+this.accountRepository = accountRepository;
+this.transactionRepository = transactionRepository;
+}
 
 
 	@Override
@@ -52,6 +57,14 @@ public class Accountserviceimpl  implements AccountService {
 		 
 		 account.setBalance(total);
 		 Account savedAccount = accountRepository.save(account);
+		 Transaction transaction = new Transaction(
+			        "DEPOSIT",
+			        amount,
+			        id,
+			        java.time.LocalDateTime.now()
+			);
+
+			transactionRepository.save(transaction);
 		 return  AccountMapper.maptoAccountdto(savedAccount);
 		
 	}
@@ -72,6 +85,14 @@ public class Accountserviceimpl  implements AccountService {
 		double total= account.getBalance()-amount;
 		account.setBalance(total);
 		 Account savedAccount = accountRepository.save(account);
+		 Transaction transaction = new Transaction(
+			        "WITHDRAW",
+			        amount,
+			        id,
+			        java.time.LocalDateTime.now()
+			);
+
+			transactionRepository.save(transaction);
 		
 		return AccountMapper.maptoAccountdto(savedAccount);
 	}
@@ -126,7 +147,18 @@ public class Accountserviceimpl  implements AccountService {
 
 	    accountRepository.save(fromAccount);
 	    accountRepository.save(toAccount);
+	    
+	    Transaction transaction = new Transaction(
+	            "TRANSFER",
+	            transferFundDto.getAmount(),
+	            transferFundDto.getFromAccountId(),
+	            java.time.LocalDateTime.now()
+	    );
+
+	    transactionRepository.save(transaction);
 	}
+	
+	
 	
 	
 
