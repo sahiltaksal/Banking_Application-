@@ -1,111 +1,216 @@
-# Banking Management System
+# Banking Application
 
-A Spring Boot based Banking Management System project built using Java, Spring Boot, Spring Data JPA, Hibernate, MySQL, and REST APIs.
+A Spring Boot REST API based Banking Application that allows users to manage bank accounts, perform transactions, and track transaction history.
 
-## Project Overview
-
-This project is designed to manage basic banking operations such as creating accounts, viewing account details, depositing money, and withdrawing money.
-
-It follows a layered architecture using:
-
-* Controller Layer
-* Service Layer
-* Repository Layer
-* DTO Layer
-* Mapper Layer
-* Entity Layer
-
-This helps maintain clean code structure and makes the project easier to scale and maintain.
-
----
-
-## Tech Stack
-
-* Java
-* Spring Boot
-* Spring Data JPA
-* Hibernate
-* MySQL
-* Maven
-* Postman
-* Git & GitHub
-
----
-
-## Features Completed Till Now
+## Features
 
 ### Account Management
+- Create Account
+- Get Account By ID
+- Get All Accounts
+- Delete Account
 
-* Create Account (POST API)
-* Get Account By ID (GET API)
-* Deposit Money
-* Withdraw Money
-* Insufficient Balance Validation
-* Delete Account
+### Transactions
+- Deposit Money
+- Withdraw Money
+- Transfer Funds Between Accounts
+- View Transaction History
 
----
+### Exception Handling
+- Global Exception Handling using `@ControllerAdvice`
+- Custom Exception (`AccountException`)
+- Proper Error Responses
+
+### Database Integration
+- MySQL Database
+- Spring Data JPA
+- Hibernate ORM
+
+## Technologies Used
+
+- Java
+- Spring Boot
+- Spring Data JPA
+- MySQL
+- Maven
+- Lombok
+- REST APIs
+- Postman
+- Git & GitHub
+
+## Project Structure
+
+```text
+src/main/java/com/bank/Banking/application
+
+├── controller
+│   └── AccountController
+│
+├── dto
+│   ├── AccountDto
+│   ├── TransferFundDto
+│   └── TransactionDto
+│
+├── entity
+│   ├── Account
+│   ├── Transaction
+│   ├── AccountRepository
+│   └── TransactionRepository
+│
+├── mapper
+│   ├── AccountMapper
+│   └── TransactionMapper
+│
+├── service
+│   ├── AccountService
+│   └── impl
+│       └── Accountserviceimpl
+│
+├── exception
+│   ├── AccountException
+│   ├── ErrorDetails
+│   └── GlobalExceptionHandler
+│
+└── BankingApplication
+```
 
 ## API Endpoints
 
-### 1. Create Account
+### Create Account
 
-**POST** `/api/accounts`
+```http
+POST /api/accounts
+```
 
-### Request Body
+Request Body:
 
 ```json
 {
-  "accountHolderName": "Sahil",
-  "balance": 20000
+    "accountHolderName":"Sahil",
+    "balance":10000
 }
 ```
 
 ---
 
-### 2. Get Account By ID
+### Get Account By ID
 
-**GET** `/api/accounts/{id}`
+```http
+GET /api/accounts/{id}
+```
 
 Example:
 
-```text
-/api/accounts/1
+```http
+GET /api/accounts/1
 ```
 
 ---
 
-### 3. Deposit Money
+### Get All Accounts
 
-**PUT** `/api/accounts/{id}/deposit`
-
----
-
-### 4. Withdraw Money
-
-**PUT** `/api/accounts/{id}/withdraw`
-
-Includes insufficient balance check.
-
----
-
-## Project Structure
-
-```text
-src/main/java
- └── com.bank.Banking.application
-      ├── controller
-      ├── dto
-      ├── entity
-      ├── mapper
-      ├── service
-      └── service.impl
+```http
+GET /api/accounts
 ```
 
 ---
+
+### Deposit Money
+
+```http
+PUT /api/accounts/{id}/deposit
+```
+
+Request Body:
+
+```json
+{
+    "amount":5000
+}
+```
+
+---
+
+### Withdraw Money
+
+```http
+PUT /api/accounts/{id}/withdraw
+```
+
+Request Body:
+
+```json
+{
+    "amount":2000
+}
+```
+
+---
+
+### Transfer Funds
+
+```http
+POST /api/accounts/transfer
+```
+
+Request Body:
+
+```json
+{
+    "fromAccountId":1,
+    "toAccountId":2,
+    "amount":3000
+}
+```
+
+---
+
+### Delete Account
+
+```http
+DELETE /api/accounts/{id}
+```
+
+---
+
+### Get Transaction History
+
+```http
+GET /api/accounts/{id}/transactions
+```
+
+Example:
+
+```http
+GET /api/accounts/1/transactions
+```
+
+Response:
+
+```json
+[
+  {
+    "id":1,
+    "transactionType":"DEPOSIT",
+    "amount":5000,
+    "accountId":1
+  },
+  {
+    "id":2,
+    "transactionType":"WITHDRAW",
+    "amount":2000,
+    "accountId":1
+  }
+]
+```
 
 ## Database Configuration
 
-Configured using MySQL in `application.properties`
+Configure MySQL in:
+
+```properties
+src/main/resources/application.properties
+```
 
 Example:
 
@@ -113,35 +218,50 @@ Example:
 spring.datasource.url=jdbc:mysql://localhost:3306/banking_application
 spring.datasource.username=root
 spring.datasource.password=your_password
+
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
 ```
 
----
+## Running the Project
 
-## Learning Highlights
+Clone Repository:
 
-This project helped in understanding:
+```bash
+git clone https://github.com/sahiltaksal/Banking_Application-.git
+```
 
-* REST API development
-* DTO vs Entity
-* Mapper usage
-* Service Layer business logic
-* Repository and JPA operations
-* Exception handling basics
-* GitHub project management
+Move into project:
 
----
+```bash
+cd Banking_Application-
+```
 
-## Upcoming Features
+Run application:
 
+```bash
+mvn spring-boot:run
+```
 
-* Transfer Money
-* Transaction History
-* Global Exception Handling
-* Validation
-* JWT Authentication
-* Swagger Documentation
+Application starts at:
 
----
+```text
+http://localhost:8080
+```
 
+## Future Enhancements
+
+- Thymeleaf Frontend
+- Login & Authentication
+- Spring Security + JWT
+- Swagger Documentation
+- PDF Bank Statement
+- Email Notifications
+- Docker Deployment
+- Admin Dashboard
+
+## Author
+
+**Sahil Taksal**
+
+GitHub: https://github.com/sahiltaksal
