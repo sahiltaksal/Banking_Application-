@@ -260,8 +260,4 @@ http://localhost:8080
 - Docker Deployment
 - Admin Dashboard
 
-## Author
 
-**Sahil Taksal**
-
-GitHub: https://github.com/sahiltaksal
