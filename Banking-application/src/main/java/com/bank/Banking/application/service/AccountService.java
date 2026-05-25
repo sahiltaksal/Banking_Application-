@@ -21,6 +21,8 @@ public interface AccountService {
 	
 	void transferFunds(TransferFundDto transferFundDto);
 	
+	Accountdto updateAccount(Long id, Accountdto accountdto);
+	
 }
  
 

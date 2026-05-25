@@ -157,9 +157,29 @@ this.transactionRepository = transactionRepository;
 
 	    transactionRepository.save(transaction);
 	}
-	
-	
-	
+
+
+	@Override
+	public Accountdto updateAccount(
+	        Long id,
+	        Accountdto accountdto) {
+
+	    Account account =
+	            accountRepository.findById(id)
+	            .orElseThrow(() ->
+	                    new AccountException("Account does not exist"));
+
+	    account.setAccountHoldername(
+	            accountdto.accountHolderName());
+
+	    account.setBalance(
+	            accountdto.balance());
+
+	    Account savedAccount =
+	            accountRepository.save(account);
+
+	    return AccountMapper.maptoAccountdto(savedAccount);
+	}
 	
 
 }

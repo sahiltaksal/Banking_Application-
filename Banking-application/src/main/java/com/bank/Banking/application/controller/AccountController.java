@@ -1,11 +1,13 @@
 package com.bank.Banking.application.controller;
 
 import java.util.List;
+
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bank.Banking.application.dto.Accountdto;
 import com.bank.Banking.application.dto.TransferFundDto;
 import com.bank.Banking.application.service.AccountService;
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/accounts")
 public class AccountController {
@@ -87,7 +90,7 @@ public class AccountController {
     }
     
     //Delete Account REST API 
-    @DeleteMapping("/{id}/deleteAccount")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteAccount(@PathVariable Long id){
     	accountService.deleteAccount(id);
     	return ResponseEntity.ok("aacounts deleted sucessfully");
@@ -105,6 +108,18 @@ public class AccountController {
         return ResponseEntity.ok("Fund transferred successfully");
     }
     
+ // Update Account REST API
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Accountdto> updateAccount(
+            @PathVariable Long id,
+            @RequestBody Accountdto accountdto) {
+
+        Accountdto updatedAccount =
+                accountService.updateAccount(id, accountdto);
+
+        return ResponseEntity.ok(updatedAccount);
+    }
 	
 
 }
