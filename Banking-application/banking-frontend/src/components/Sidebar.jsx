@@ -50,6 +50,31 @@ function Sidebar() {
     </Link>
 </li>
 
+<li className="nav-item">
+    <Link
+        to="/withdraw"
+        className="nav-link text-white"
+    >
+        Withdraw Money
+    </Link>
+</li>
+<li className="nav-item">
+    <Link
+        to="/transfer"
+        className="nav-link text-white"
+    >
+        Transfer Money
+    </Link>
+</li>
+<li className="nav-item">
+    <Link
+        to="/transactions"
+        className="nav-link text-white"
+    >
+        Transaction History
+    </Link>
+</li>
+
       </ul>
 
     </div>

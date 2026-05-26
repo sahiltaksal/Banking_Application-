@@ -25,3 +25,17 @@ export const depositMoney = (id, amount) => {
         { amount }
     );
 };
+
+
+export const withdrawMoney = (id, amount) => {
+    return axios.put(
+        `${BASE_URL}/${id}/withdraw`,
+        { amount }
+    );
+};
+export const transferMoney = (transferData) => {
+    return axios.put(
+        `${BASE_URL}/transfer`,
+        transferData
+    );
+};
